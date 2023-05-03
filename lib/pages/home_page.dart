@@ -12,12 +12,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Color backgroundColor = Colors.white;
+  Color fontColor = Colors.black;
   int colorBase = 0xFFFFFF;
+  double fontSize = 18;
+
+  Color getTextColorForBackground(Color backgroundColor) {
+    if (ThemeData.estimateBrightnessForColor(backgroundColor) ==
+        Brightness.dark) {
+      return Colors.white70;
+    }
+
+    return Colors.black87;
+  }
 
   void _changeColor() {
     setState(() {
       backgroundColor = Color((math.Random().nextDouble() * colorBase).toInt())
           .withOpacity(1.0);
+      fontColor = getTextColorForBackground(backgroundColor);
     });
   }
 
@@ -29,10 +41,10 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Text(
                 'Hello There',
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: fontSize, color: fontColor),
               ),
             ],
           ),
